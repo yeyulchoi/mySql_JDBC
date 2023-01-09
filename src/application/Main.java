@@ -22,20 +22,26 @@ public class Main extends Application {
 			Connection conn = null;
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/satishlesson","root","Yoonja7979!!");
 			System.out.println("database connected successfully");
-			Statement stmt = conn.createStatement();
+			Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			ResultSet result = stmt.executeQuery("select * from student");
 			
-//			if(!result.next()) {
-//				System.out.println("The table is empty.");
-//			}else {
-			
+			if(!result.next()) {
+				System.out.println("The table is empty.");
+			}else 
+			{
+				
+				result.previous();
 				while(result.next()) {
 				System.out.println(result.getString(1)+"    "+result.getString(2)+"  "+result.getString(3)+"   "+result.getInt(4));
 			}
-//			
 			
+			
+			
+			
+			
+		
 			conn.close();
-//			}
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
